@@ -124,7 +124,6 @@ void ReadWriteFiles::FromDataToVertexVector(std::string DataFileToVertexVector, 
 			while (iss >> Number)
 			{
 				floats.push_back(Number);
-
 			}
 			float TempX = floats[0];
 			float TempY = floats[1];
@@ -132,7 +131,7 @@ void ReadWriteFiles::FromDataToVertexVector(std::string DataFileToVertexVector, 
 			float TempR = floats[3];
 			float TempG = floats[4];
 			float TempB = floats[5];
-			VerticesVector.emplace_back(Vertex{TempX, TempY, TempZ, TempR, TempG, TempB});
+			VerticesVector.emplace_back(Vertex{ TempX, TempY, TempZ, TempR, TempG, TempB });
 		}
 
 		std::cout << "Amount of Vertexes added to the vector: " << VerticesVector.size() << std::endl;
@@ -155,4 +154,5 @@ void ReadWriteFiles::RemovingUnwantedChars(std::string& Line)
 	Line.erase(std::remove(Line.begin(), Line.end(), 'b'), Line.end());
 	Line.erase(std::remove(Line.begin(), Line.end(), ':'), Line.end());
 	Line.erase(std::remove(Line.begin(), Line.end(), ','), Line.end());
+	Line.erase(std::remove(Line.begin(), Line.end(), 'f'), Line.end());
 }

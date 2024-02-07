@@ -27,12 +27,6 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-	ReadWriteFiles ReadWrite;
-	std::vector<Vertex> VerticesVector;
-	ReadWrite.ReadFromFileWriteIntoNewFile("TestDataFile.txt", "NewDataFile.txt");
-	ReadWrite.FromDataToVertexVector("NewDataFile.txt", VerticesVector);
-
-
 	// glfw window creation
 	// --------------------
 	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
@@ -57,72 +51,90 @@ int main()
 	// ------------------------------------
 	Shader ShaderProgram("VertexShader.vert", "FragmentShader.frag");
 
-	// set up vertex data (and buffer(s)) and configure vertex attributes
-	// ------------------------------------------------------------------
-	float vertices[] = {
-		// positions         // colors
-		 0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  // bottom right
-		-0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,  // bottom left
-		 0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f   // top
-	};
-
 	unsigned int VBO, VAO;
 
-	/////////Line Array/////////
-	std::vector<Lines> LinesVector;
-	Lines LineObject;
-	LinesVector.push_back(LineObject);
-	for (auto it = LinesVector.begin(); it != LinesVector.end(); it++)
-	{
-		//Vertex Array Object - VAO
-		glGenVertexArrays(1, &VAO);
-		glBindVertexArray(VAO);
+	/////////Custom Array/////////
+	ReadWriteFiles ReadWrite;
+	std::vector<Vertex> CustomVector;
+	ReadWrite.ReadFromFileWriteIntoNewFile("TestDataFile.txt", "NewDataFile.txt");
+	ReadWrite.FromDataToVertexVector("NewDataFile.txt", CustomVector);
 
-		//Vertex Buffer Object to hold vertices - VBO
-		glGenBuffers(1, &VBO);
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	//Vertex Array Object - VAO
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
 
-		glBufferData(GL_ARRAY_BUFFER, it->VerticesVector.size() * sizeof(Vertex), it->VerticesVector.data(), GL_STATIC_DRAW);
+	//Vertex Buffer Object to hold vertices - VBO
+	glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-		// 1rst attribute buffer : vertices
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
-		glEnableVertexAttribArray(0);
+	glBufferData(GL_ARRAY_BUFFER, CustomVector.size() * sizeof(Vertex), CustomVector.data(), GL_STATIC_DRAW);
 
-		// 2nd attribute buffer : colors
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(3 * sizeof(GLfloat)));
-		glEnableVertexAttribArray(1);
+	// 1rst attribute buffer : vertices
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
+	glEnableVertexAttribArray(0);
 
-		glBindVertexArray(0);
-	}
+	// 2nd attribute buffer : colors
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
 
-	/////////Triangle Array/////////
-	std::vector<Triangle> TrianlgesVector;
-	Triangle TriangleObject;
-	TrianlgesVector.push_back(TriangleObject);
-	for (auto it = TrianlgesVector.begin(); it != TrianlgesVector.end(); it++)
-	{
-		//Vertex Array Object - VAO
-		glGenVertexArrays(1, &VAO);
-		glBindVertexArray(VAO);
+	glBindVertexArray(0);
 
-		//Vertex Buffer Object to hold vertices - VBO
-		glGenBuffers(1, &VBO);
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	///////////Line Array/////////
+	//std::vector<Lines> LinesVector;
+	//Lines LineObject;
+	//LinesVector.push_back(LineObject);
+	//for (auto it = LinesVector.begin(); it != LinesVector.end(); it++)
+	//{
+	//	//Vertex Array Object - VAO
+	//	glGenVertexArrays(1, &VAO);
+	//	glBindVertexArray(VAO);
 
-		glBufferData(GL_ARRAY_BUFFER, it->VerticesVector.size() * sizeof(Vertex), it->VerticesVector.data(), GL_STATIC_DRAW);
+	//	//Vertex Buffer Object to hold vertices - VBO
+	//	glGenBuffers(1, &VBO);
+	//	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-		// 1rst attribute buffer : vertices
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
-		glEnableVertexAttribArray(0);
+	//	glBufferData(GL_ARRAY_BUFFER, it->VerticesVector.size() * sizeof(Vertex), it->VerticesVector.data(), GL_STATIC_DRAW);
 
-		// 2nd attribute buffer : colors
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(3 * sizeof(GLfloat)));
-		glEnableVertexAttribArray(1);
+	//	// 1rst attribute buffer : vertices
+	//	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	//	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
+	//	glEnableVertexAttribArray(0);
 
-		glBindVertexArray(0);
-	}
+	//	// 2nd attribute buffer : colors
+	//	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(3 * sizeof(GLfloat)));
+	//	glEnableVertexAttribArray(1);
+
+	//	glBindVertexArray(0);
+	//}
+
+	///////////Triangle Array/////////
+	//std::vector<Triangle> TrianlgesVector;
+	//Triangle TriangleObject;
+	//TrianlgesVector.push_back(TriangleObject);
+	//for (auto it = TrianlgesVector.begin(); it != TrianlgesVector.end(); it++)
+	//{
+	//	//Vertex Array Object - VAO
+	//	glGenVertexArrays(1, &VAO);
+	//	glBindVertexArray(VAO);
+
+	//	//Vertex Buffer Object to hold vertices - VBO
+	//	glGenBuffers(1, &VBO);
+	//	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+	//	glBufferData(GL_ARRAY_BUFFER, it->VerticesVector.size() * sizeof(Vertex), it->VerticesVector.data(), GL_STATIC_DRAW);
+
+	//	// 1rst attribute buffer : vertices
+	//	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	//	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
+	//	glEnableVertexAttribArray(0);
+
+	//	// 2nd attribute buffer : colors
+	//	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(3 * sizeof(GLfloat)));
+	//	glEnableVertexAttribArray(1);
+
+	//	glBindVertexArray(0);
+	//}
 
 	// You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
 	// VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
@@ -149,15 +161,17 @@ int main()
 
 		glBindVertexArray(VAO);
 
+		glDrawArrays(GL_LINE_STRIP, 0, CustomVector.size());
+
+		//for (auto it = LinesVector.begin(); it != LinesVector.end(); it++)
+		//{
+		//	glDrawArrays(GL_LINE_STRIP, 0, it->VerticesVector.size());
+		//}
+
 		//for (auto it = TrianlgesVector.begin(); it != TrianlgesVector.end(); it++)
 		//{
 		//	glDrawArrays(GL_TRIANGLES, 0, it->VerticesVector.size());
 		//}
-
-		for (auto it = LinesVector.begin(); it != LinesVector.end(); it++)
-		{
-			glDrawArrays(GL_LINE_STRIP, 0, it->VerticesVector.size());
-		}
 
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------

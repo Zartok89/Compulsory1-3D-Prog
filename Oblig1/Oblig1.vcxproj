@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="Libraries\include\GLFW\glfw3.h" />
     <ClInclude Include="Libraries\include\GLFW\glfw3native.h" />
+    <ClInclude Include="MathFunctionLibrary.h" />
     <ClInclude Include="OpenGL_Objects.h" />
     <ClInclude Include="ReadWriteFiles.h" />
     <ClInclude Include="Shader.h" />
@@ -140,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="glad.c" />
     <ClCompile Include="MainOblig1.cpp" />
+    <ClCompile Include="MathFunctionLibrary.cpp" />
     <ClCompile Include="OpenGL_Objects.cpp" />
     <ClCompile Include="ReadWriteFiles.cpp" />
     <ClCompile Include="Shader.cpp" />

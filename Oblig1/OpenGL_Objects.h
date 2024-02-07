@@ -25,4 +25,3 @@ public:
 class OpenGL_Objects
 {
 };
-
