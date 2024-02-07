@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "OpenGL_Objects.h"
+#include "ReadWriteFiles.h"
 #include "Shader.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -25,6 +26,12 @@ int main()
 #ifdef __APPLE__
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
+
+	ReadWriteFiles ReadWrite;
+	std::vector<Vertex> VerticesVector;
+	ReadWrite.ReadFromFileWriteIntoNewFile("TestDataFile.txt", "NewDataFile.txt");
+	ReadWrite.FromDataToVertexVector("NewDataFile.txt", VerticesVector);
+
 
 	// glfw window creation
 	// --------------------
@@ -61,7 +68,35 @@ int main()
 
 	unsigned int VBO, VAO;
 
-	/////////Draw Triangle/////////
+	/////////Line Array/////////
+	std::vector<Lines> LinesVector;
+	Lines LineObject;
+	LinesVector.push_back(LineObject);
+	for (auto it = LinesVector.begin(); it != LinesVector.end(); it++)
+	{
+		//Vertex Array Object - VAO
+		glGenVertexArrays(1, &VAO);
+		glBindVertexArray(VAO);
+
+		//Vertex Buffer Object to hold vertices - VBO
+		glGenBuffers(1, &VBO);
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+		glBufferData(GL_ARRAY_BUFFER, it->VerticesVector.size() * sizeof(Vertex), it->VerticesVector.data(), GL_STATIC_DRAW);
+
+		// 1rst attribute buffer : vertices
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
+		glEnableVertexAttribArray(0);
+
+		// 2nd attribute buffer : colors
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(3 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(1);
+
+		glBindVertexArray(0);
+	}
+
+	/////////Triangle Array/////////
 	std::vector<Triangle> TrianlgesVector;
 	Triangle TriangleObject;
 	TrianlgesVector.push_back(TriangleObject);
@@ -113,8 +148,16 @@ int main()
 		ShaderProgram.use();
 
 		glBindVertexArray(VAO);
-		for (auto it = TrianlgesVector.begin(); it != TrianlgesVector.end(); it++)    // Tillegg 290124
-			glDrawArrays(GL_TRIANGLES, 0, it->VerticesVector.size());
+
+		//for (auto it = TrianlgesVector.begin(); it != TrianlgesVector.end(); it++)
+		//{
+		//	glDrawArrays(GL_TRIANGLES, 0, it->VerticesVector.size());
+		//}
+
+		for (auto it = LinesVector.begin(); it != LinesVector.end(); it++)
+		{
+			glDrawArrays(GL_LINE_STRIP, 0, it->VerticesVector.size());
+		}
 
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------

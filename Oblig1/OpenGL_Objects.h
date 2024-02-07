@@ -15,6 +15,13 @@ public:
 	std::vector<Vertex> VerticesVector;
 };
 
+class Lines
+{
+public:
+	Lines();
+	std::vector<Vertex> VerticesVector;
+};
+
 class OpenGL_Objects
 {
 };
