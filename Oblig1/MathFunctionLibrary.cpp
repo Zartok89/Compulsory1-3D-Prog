@@ -28,8 +28,27 @@ void MathFunctionLibrary::Andregradsfunksjon(float LavreGrense, float OvreGrense
 		Vertices.y = a + b + c;
 
 		std::cout << "F(" << LeddNr << ") = " << "a: " << a << ", b: " << b << ", c: " << c << ", F'(" << LeddNr << ") = " << DenDeriverte;
-		std::cout << " || Sum av ledd: " << Vertices.y <<" \n\n";
-		VerticesVector.push_back(Vertices);
+		std::cout << " || Sum av ledd: " << Vertices.y << " \n\n";
 		LeddNr++;
+
+		if (DenDeriverte > 0)
+		{
+			Vertices.r = 0.f;
+			Vertices.g = 1.f;
+			Vertices.b = 0.f;
+		}
+		if (DenDeriverte == 0)
+		{
+			Vertices.r = 1.f;
+			Vertices.g = 1.f;
+			Vertices.b = 0.f;
+		}
+		if (DenDeriverte < 0)
+		{
+			Vertices.r = 1.f;
+			Vertices.g = 0.f;
+			Vertices.b = 0.f;
+		}
+		VerticesVector.push_back(Vertices);
 	}
 }

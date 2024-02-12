@@ -30,7 +30,7 @@ int main()
 	// Skriver ut andregradsfunksjonen til fil Oppgave 1
 	ReadWriteTest->WriteToFile("Oppgave1.txt", MathFuncLib->VerticesVector);
 
-	ReadWriteTest->WriteToFile("C:/Test/TestWrite.txt", TriangleTest.VerticesVector);
+	//ReadWriteTest->WriteToFile("C:/Test/TestWrite.txt", TriangleTest.VerticesVector);
 
 	// glfw: initialize and configure
 	// ------------------------------
@@ -72,8 +72,8 @@ int main()
 	/////////Custom Array/////////
 	ReadWriteFiles ReadWrite;
 	std::vector<Vertex> CustomVector;
-	ReadWrite.ReadFromFileWriteIntoNewFile("TestDataFile.txt", "NewDataFile.txt");
-	ReadWrite.FromDataToVertexVector("NewDataFile.txt", CustomVector);
+	//ReadWrite.ReadFromFileWriteIntoNewFile("TestDataFile.txt", "NewDataFile.txt");
+	//ReadWrite.FromDataToVertexVector("NewDataFile.txt", CustomVector);
 
 	//Vertex Array Object - VAO
 	glGenVertexArrays(1, &VAO);
