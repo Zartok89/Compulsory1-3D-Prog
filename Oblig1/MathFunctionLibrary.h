@@ -6,7 +6,6 @@ class Vertex;
 
 class MathFunctionLibrary
 {
-
 	float a = 0;
 	float b = 0;
 	float c = 0;

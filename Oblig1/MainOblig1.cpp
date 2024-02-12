@@ -28,7 +28,8 @@ int main()
 	/*Oppgave 1*/
 	MathFuncLib->Andregradsfunksjon(-3, 3, 12);
 	// Skriver ut andregradsfunksjonen til fil Oppgave 1
-	ReadWriteTest->WriteToFile("Oppgave1.txt", MathFuncLib->VerticesVector);
+	ReadWriteTest->WriteToFile("Oppgave1Matematikk.txt", MathFuncLib->VerticesVector);
+	ReadWriteTest->ReadFromFileWriteIntoNewFile("Oppgave1Matematikk.txt", "Oppgave1Datapunkter.txt");
 
 	//ReadWriteTest->WriteToFile("C:/Test/TestWrite.txt", TriangleTest.VerticesVector);
 
@@ -72,8 +73,7 @@ int main()
 	/////////Custom Array/////////
 	ReadWriteFiles ReadWrite;
 	std::vector<Vertex> CustomVector;
-	//ReadWrite.ReadFromFileWriteIntoNewFile("TestDataFile.txt", "NewDataFile.txt");
-	//ReadWrite.FromDataToVertexVector("NewDataFile.txt", CustomVector);
+	ReadWrite.FromDataToVertexVector("Oppgave1Datapunkter.txt", CustomVector);
 
 	//Vertex Array Object - VAO
 	glGenVertexArrays(1, &VAO);

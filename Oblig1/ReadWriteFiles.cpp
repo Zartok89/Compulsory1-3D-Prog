@@ -19,6 +19,7 @@ void ReadWriteFiles::WriteToFile(std::string Filepath, std::vector<Vertex>& Vert
 	if (MyFile.is_open())
 	{
 		std::cout << "File has been opened correctly\n";
+		MyFile << "Amount of Vertices: " << VertexVector.size() << "\n";
 		for (Vertex Vert : VertexVector)
 		{
 			MyFile << "x: " << Vert.x << ", ";
@@ -28,7 +29,7 @@ void ReadWriteFiles::WriteToFile(std::string Filepath, std::vector<Vertex>& Vert
 			MyFile << "g: " << Vert.g << ", ";
 			MyFile << "b: " << Vert.b << " \n";
 		}
-		
+
 		MyFile.close();
 	}
 	else
@@ -86,6 +87,8 @@ void ReadWriteFiles::ReadFromFileWriteIntoNewFile(std::string FileToRead, std::s
 		std::cout << "Reading file: " << FileToRead << std::endl;
 		std::cout << "Starting to write into new file: " << NewDataFile << std::endl;
 		std::string Line;
+		  // Skip the first line
+		std::getline(MyFileRead, Line);
 		while (std::getline(MyFileRead, Line))
 		{
 			RemovingUnwantedChars(Line);

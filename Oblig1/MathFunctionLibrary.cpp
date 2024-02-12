@@ -13,7 +13,7 @@ void MathFunctionLibrary::Andregradsfunksjon(float LavreGrense, float OvreGrense
 	std::cout << "Antall intervaller (n): " << Opplosning << std::endl;
 	std::cout << "Opplosning (h): " << h << std::endl << std::endl;
 
-	for (int i = LavreGrense; i <= OvreGrense; i++)
+	for (float i = LavreGrense; i <= OvreGrense; i+=h)
 	{
 		Vertex Vertices;
 
