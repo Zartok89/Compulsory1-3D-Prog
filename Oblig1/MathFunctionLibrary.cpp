@@ -22,10 +22,13 @@ void MathFunctionLibrary::Andregradsfunksjon(float LavreGrense, float OvreGrense
 		a = 2 * pow(x, 2);
 		c = -3;
 
+		float DenDeriverte = ((4 * x) + 1);
+
 		Vertices.x = x;
 		Vertices.y = a + b + c;
-		std::cout << "F(" << LeddNr << ") = " << "a: " << a << ", b: " << b << ", c: " << c;
-		std::cout << " || Sum av ledd: " << Vertices.y << " \n\n";
+
+		std::cout << "F(" << LeddNr << ") = " << "a: " << a << ", b: " << b << ", c: " << c << ", F'(" << LeddNr << ") = " << DenDeriverte;
+		std::cout << " || Sum av ledd: " << Vertices.y <<" \n\n";
 		VerticesVector.push_back(Vertices);
 		LeddNr++;
 	}
