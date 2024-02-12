@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+#include "MathFunctionLibrary.h"
 #include "OpenGL_Objects.h"
 #include "ReadWriteFiles.h"
 #include "Shader.h"
@@ -16,6 +17,21 @@ const unsigned int SCR_HEIGHT = 600;
 
 int main()
 {
+	std::shared_ptr<ReadWriteFiles> ReadWriteTest = std::make_shared<ReadWriteFiles>();
+	std::shared_ptr<MathFunctionLibrary> MathFuncLib = std::make_shared<MathFunctionLibrary>();
+
+	Triangle TriangleTest;
+
+	// Math Functions
+	// ------------------------------
+
+	/*Oppgave 1*/
+	MathFuncLib->Andregradsfunksjon(-3, 3, 13);
+	// Skriver ut andregradsfunksjonen til fil Oppgave 1
+	ReadWriteTest->WriteToFile("Oppgave1.txt", MathFuncLib->VerticesVector);
+
+	ReadWriteTest->WriteToFile("C:/Test/TestWrite.txt", TriangleTest.VerticesVector);
+
 	// glfw: initialize and configure
 	// ------------------------------
 	glfwInit();

@@ -4,6 +4,7 @@
 class Vertex
 {
 public:
+	Vertex();
 	Vertex(float x, float y, float z, float r, float b, float g);
 	float x, y, z, r, b, g;
 };

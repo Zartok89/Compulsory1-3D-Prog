@@ -1,5 +1,10 @@
 #include "OpenGL_Objects.h"
 
+Vertex::Vertex()
+{
+	x = 0, y = 0, z = 0, r = 0, b = 0, g = 0;
+}
+
 Vertex::Vertex(float x, float y, float z, float r, float b, float g)
 	: x(x), y(y), z(z), r(r), b(b), g(g) {}
 

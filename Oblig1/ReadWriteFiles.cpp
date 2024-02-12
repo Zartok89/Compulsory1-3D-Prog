@@ -10,7 +10,7 @@ ReadWriteFiles::ReadWriteFiles()
 	std::vector<Vertex> VerticesVector;
 }
 
-void ReadWriteFiles::WriteToFile(std::string Filepath)
+void ReadWriteFiles::WriteToFile(std::string Filepath, std::vector<Vertex> VertexVector)
 {
 	/*Writing to file*/
 	//---------------------------------------------------------------------------
@@ -19,8 +19,18 @@ void ReadWriteFiles::WriteToFile(std::string Filepath)
 	if (MyFile.is_open())
 	{
 		std::cout << "File has been opened correctly\n";
-		MyFile << "Text to put into file\n";
-		MyFile << "Second line\n";
+		std::cout << "Vertex size: " << VertexVector.size();
+
+		for (Vertex Vert : VertexVector)
+		{
+			MyFile << "x: " << Vert.x << ", ";
+			MyFile << "y: " << Vert.y << ", \n";
+			//MyFile << "z: " << Vert.z << ", ";
+			//MyFile << "r: " << Vert.r << ", ";
+			//MyFile << "g: " << Vert.g << ", ";
+			//MyFile << "b: " << Vert.b << " \n";
+		}
+		
 		MyFile.close();
 	}
 	else

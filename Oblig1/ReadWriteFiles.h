@@ -9,7 +9,7 @@ class ReadWriteFiles
 public:
 
 	ReadWriteFiles();
-	void WriteToFile(std::string Filepath);
+	void WriteToFile(std::string Filepath, std::vector<Vertex> VertexVector);
 	void AppendToFile(std::string Filepath);
 	void ReadFromFile(std::string FileToRead);
 	void ReadFromFileWriteIntoNewFile(std::string FileToRead, std::string NewDataFile);
