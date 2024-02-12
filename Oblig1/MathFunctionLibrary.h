@@ -15,6 +15,6 @@ class MathFunctionLibrary
 public:
 	std::vector<Vertex> VerticesVector;
 
-	void Andregradsfunksjon(float LavreGrense, float OvreGrense, float Oppløsning);
+	void Andregradsfunksjon(float LavreGrense, float OvreGrense, float Opplosning);
 
 };

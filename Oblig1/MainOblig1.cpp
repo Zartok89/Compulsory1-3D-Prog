@@ -26,7 +26,7 @@ int main()
 	// ------------------------------
 
 	/*Oppgave 1*/
-	MathFuncLib->Andregradsfunksjon(-3, 3, 13);
+	MathFuncLib->Andregradsfunksjon(-3, 3, 12);
 	// Skriver ut andregradsfunksjonen til fil Oppgave 1
 	ReadWriteTest->WriteToFile("Oppgave1.txt", MathFuncLib->VerticesVector);
 

@@ -5,9 +5,13 @@
 
 #include "OpenGL_Objects.h"
 
-void MathFunctionLibrary::Andregradsfunksjon(float LavreGrense, float OvreGrense, float Oppløsning)
+void MathFunctionLibrary::Andregradsfunksjon(float LavreGrense, float OvreGrense, float Opplosning)
 {
 	int LeddNr = 0;
+	float h = ((OvreGrense - LavreGrense) / Opplosning);
+
+	std::cout << "Antall intervaller (n): " << Opplosning << std::endl;
+	std::cout << "Opplosning (h): " << h << std::endl << std::endl;
 
 	for (int i = LavreGrense; i <= OvreGrense; i++)
 	{
