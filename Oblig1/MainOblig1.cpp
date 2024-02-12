@@ -7,6 +7,7 @@
 #include "OpenGL_Objects.h"
 #include "ReadWriteFiles.h"
 #include "Shader.h"
+#include "Camera.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -26,10 +27,18 @@ int main()
 	// ------------------------------
 
 	/*Oppgave 1*/
-	MathFuncLib->Andregradsfunksjon(-3, 3, 12);
+	std::vector<Vertex> Oppgave1Vert;
+	MathFuncLib->Andregradsfunksjon(-3, 3, 12, Oppgave1Vert);
 	// Skriver ut andregradsfunksjonen til fil Oppgave 1
-	ReadWriteTest->WriteToFile("Oppgave1Matematikk.txt", MathFuncLib->VerticesVector);
+	ReadWriteTest->WriteToFile("Oppgave1Matematikk.txt", Oppgave1Vert);
 	ReadWriteTest->ReadFromFileWriteIntoNewFile("Oppgave1Matematikk.txt", "Oppgave1Datapunkter.txt");
+
+	/*Oppgave 2*/
+	std::vector<Vertex> Oppgave2Vert;
+	float pi = 2 * acos(0.0);
+	MathFuncLib->TreDSpiral(0, pi / 6, 12, Oppgave2Vert);
+	ReadWriteTest->WriteToFile("Oppgave2Matematikk.txt", Oppgave2Vert);
+	ReadWriteTest->ReadFromFileWriteIntoNewFile("Oppgave2Matematikk.txt", "Oppgave2Datapunkter.txt");
 
 	//ReadWriteTest->WriteToFile("C:/Test/TestWrite.txt", TriangleTest.VerticesVector);
 
@@ -70,10 +79,10 @@ int main()
 
 	unsigned int VBO, VAO;
 
-	/////////Custom Array/////////
+	/////////Custom Array Oppgave 1/////////
 	ReadWriteFiles ReadWrite;
-	std::vector<Vertex> CustomVector;
-	ReadWrite.FromDataToVertexVector("Oppgave1Datapunkter.txt", CustomVector);
+	std::vector<Vertex> Opg1Vector;
+	ReadWrite.FromDataToVertexVector("Oppgave1Datapunkter.txt", Opg1Vector);
 
 	//Vertex Array Object - VAO
 	glGenVertexArrays(1, &VAO);
@@ -83,7 +92,13 @@ int main()
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-	glBufferData(GL_ARRAY_BUFFER, CustomVector.size() * sizeof(Vertex), CustomVector.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, Opg1Vector.size() * sizeof(Vertex), Opg1Vector.data(), GL_STATIC_DRAW);
+
+	/////////Custom Array Oppgave 2/////////
+	std::vector<Vertex> Opg2Vector;
+	ReadWrite.FromDataToVertexVector("Oppgave2Datapunkter.txt", Opg1Vector);
+
+	//glBufferData(GL_ARRAY_BUFFER, Opg2Vector.size() * sizeof(Vertex), Opg2Vector.data(), GL_STATIC_DRAW);
 
 	// 1rst attribute buffer : vertices
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -158,6 +173,12 @@ int main()
 
 	//float offset = 0.5f;
 
+	// Enables the Depth Buffer
+	//glEnable(GL_DEPTH_TEST);
+
+	// Creates camera object
+	Camera camera(SCR_WIDTH, SCR_HEIGHT, glm::vec3(0.0f, 0.0f, 2.0f));
+
 	// render loop
 	// -----------
 	while (!glfwWindowShouldClose(window))
@@ -175,9 +196,15 @@ int main()
 		// render the triangle
 		ShaderProgram.use();
 
+		// Handles camera inputs
+		camera.Inputs(window);
+		// Updates and exports the camera matrix to the Vertex Shader
+		camera.Matrix(45.0f, 0.1f, 100.0f, ShaderProgram, "camMatrix");
+
 		glBindVertexArray(VAO);
 
-		glDrawArrays(GL_LINE_STRIP, 0, CustomVector.size());
+		glDrawArrays(GL_LINE_STRIP, 0, Opg1Vector.size());
+		glDrawArrays(GL_LINE_STRIP, 0, Opg2Vector.size());
 
 		//for (auto it = LinesVector.begin(); it != LinesVector.end(); it++)
 		//{

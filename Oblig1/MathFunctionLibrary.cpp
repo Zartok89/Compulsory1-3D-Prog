@@ -5,7 +5,7 @@
 
 #include "OpenGL_Objects.h"
 
-void MathFunctionLibrary::Andregradsfunksjon(float LavreGrense, float OvreGrense, float Opplosning)
+void MathFunctionLibrary::Andregradsfunksjon(float LavreGrense, float OvreGrense, float Opplosning, std::vector<Vertex>& VertVector)
 {
 	int LeddNr = 0;
 	float h = ((OvreGrense - LavreGrense) / Opplosning);
@@ -13,7 +13,7 @@ void MathFunctionLibrary::Andregradsfunksjon(float LavreGrense, float OvreGrense
 	std::cout << "Antall intervaller (n): " << Opplosning << std::endl;
 	std::cout << "Opplosning (h): " << h << std::endl << std::endl;
 
-	for (float i = LavreGrense; i <= OvreGrense; i+=h)
+	for (float i = LavreGrense; i <= OvreGrense; i += h)
 	{
 		Vertex Vertices;
 
@@ -49,6 +49,53 @@ void MathFunctionLibrary::Andregradsfunksjon(float LavreGrense, float OvreGrense
 			Vertices.g = 0.f;
 			Vertices.b = 0.f;
 		}
-		VerticesVector.push_back(Vertices);
+		VertVector.push_back(Vertices);
+	}
+}
+
+void MathFunctionLibrary::TreDSpiral(float LavreGrense, float OvreGrense, float Opplosning, std::vector<Vertex>& VertVector)
+{
+	int LeddNr = 0;
+	float h = ((OvreGrense - LavreGrense) / Opplosning);
+
+	std::cout << "Antall intervaller (n): " << Opplosning << std::endl;
+	std::cout << "Opplosning (h): " << h << std::endl << std::endl;
+
+	for (float i = LavreGrense; i <= OvreGrense; i += h)
+	{
+		Vertex Vertices;
+
+		x = cos(i);
+		y = sin(i);
+		z = x/10;
+
+		//float DenDeriverte = ((4 * x) + 1);
+
+		Vertices.x = x;
+		Vertices.y = y;
+		Vertices.z = z;
+
+		std::cout << "F(" << LeddNr << ") = " << "x: " << x << ", y: " << y << ", z: " << z << "\n" /*<< ", F'(" << LeddNr << ") = " << DenDeriverte*/;
+		LeddNr++;
+
+		//if (DenDeriverte > 0)
+		//{
+		//	Vertices.r = 0.f;
+		//	Vertices.g = 1.f;
+		//	Vertices.b = 0.f;
+		//}
+		//if (DenDeriverte == 0)
+		//{
+		//	Vertices.r = 1.f;
+		//	Vertices.g = 1.f;
+		//	Vertices.b = 0.f;
+		//}
+		//if (DenDeriverte < 0)
+		//{
+		//	Vertices.r = 1.f;
+		//	Vertices.g = 0.f;
+		//	Vertices.b = 0.f;
+		//}
+		VertVector.push_back(Vertices);
 	}
 }

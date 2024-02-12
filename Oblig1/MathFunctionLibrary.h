@@ -10,10 +10,13 @@ class MathFunctionLibrary
 	float b = 0;
 	float c = 0;
 	float x = 0;
+	float y = 0;
+	float z = 0;
 
 public:
 	std::vector<Vertex> VerticesVector;
 
-	void Andregradsfunksjon(float LavreGrense, float OvreGrense, float Opplosning);
+	void Andregradsfunksjon(float LavreGrense, float OvreGrense, float Opplosning, std::vector<Vertex>& VertVector);
 
+	void TreDSpiral(float LavreGrense, float OvreGrense, float Opplosning, std::vector<Vertex>& VertVector);
 };
