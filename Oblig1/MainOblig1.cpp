@@ -36,7 +36,7 @@ int main()
 	/*Oppgave 2*/
 	std::vector<Vertex> Oppgave2Vert;
 	float pi = 2 * acos(0.0);
-	MathFuncLib->TreDSpiral(0, pi / 6, 12, Oppgave2Vert);
+	MathFuncLib->TreDSpiral(0, (pi / 6)*100, 100, 1, Oppgave2Vert);
 	ReadWriteTest->WriteToFile("Oppgave2Matematikk.txt", Oppgave2Vert);
 	ReadWriteTest->ReadFromFileWriteIntoNewFile("Oppgave2Matematikk.txt", "Oppgave2Datapunkter.txt");
 
@@ -92,13 +92,13 @@ int main()
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-	glBufferData(GL_ARRAY_BUFFER, Opg1Vector.size() * sizeof(Vertex), Opg1Vector.data(), GL_STATIC_DRAW);
+	//glBufferData(GL_ARRAY_BUFFER, Opg1Vector.size() * sizeof(Vertex), Opg1Vector.data(), GL_STATIC_DRAW);
 
 	/////////Custom Array Oppgave 2/////////
 	std::vector<Vertex> Opg2Vector;
-	ReadWrite.FromDataToVertexVector("Oppgave2Datapunkter.txt", Opg1Vector);
+	ReadWrite.FromDataToVertexVector("Oppgave2Datapunkter.txt", Opg2Vector);
 
-	//glBufferData(GL_ARRAY_BUFFER, Opg2Vector.size() * sizeof(Vertex), Opg2Vector.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, Opg2Vector.size() * sizeof(Vertex), Opg2Vector.data(), GL_STATIC_DRAW);
 
 	// 1rst attribute buffer : vertices
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -108,6 +108,10 @@ int main()
 	// 2nd attribute buffer : colors
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
+
+	// 3nd attribute buffer : colors
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(2);
 
 	glBindVertexArray(0);
 
@@ -199,11 +203,11 @@ int main()
 		// Handles camera inputs
 		camera.Inputs(window);
 		// Updates and exports the camera matrix to the Vertex Shader
-		camera.Matrix(45.0f, 0.1f, 100.0f, ShaderProgram, "camMatrix");
+		camera.Matrix(45.0f, 0.1f, 1000.0f, ShaderProgram, "camMatrix");
 
 		glBindVertexArray(VAO);
 
-		glDrawArrays(GL_LINE_STRIP, 0, Opg1Vector.size());
+		//glDrawArrays(GL_LINE_STRIP, 0, Opg1Vector.size());
 		glDrawArrays(GL_LINE_STRIP, 0, Opg2Vector.size());
 
 		//for (auto it = LinesVector.begin(); it != LinesVector.end(); it++)

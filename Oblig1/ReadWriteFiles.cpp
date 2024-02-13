@@ -1,6 +1,7 @@
 #include "ReadWriteFiles.h"
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 #include <sstream>
 
 #include "OpenGL_Objects.h"
@@ -18,6 +19,7 @@ void ReadWriteFiles::WriteToFile(std::string Filepath, std::vector<Vertex>& Vert
 	MyFile.open(Filepath, std::ios::out); // Writemode into a text-file
 	if (MyFile.is_open())
 	{
+		MyFile << std::fixed << std::setprecision(4);
 		std::cout << "File has been opened correctly\n";
 		MyFile << "Amount of Vertices: " << VertexVector.size() << "\n";
 		for (Vertex Vert : VertexVector)
@@ -84,6 +86,7 @@ void ReadWriteFiles::ReadFromFileWriteIntoNewFile(std::string FileToRead, std::s
 
 	if (MyFileRead.is_open() && MyFileWrite.is_open())
 	{
+		MyFileWrite << std::fixed << std::setprecision(4);
 		std::cout << "Reading file: " << FileToRead << std::endl;
 		std::cout << "Starting to write into new file: " << NewDataFile << std::endl;
 		std::string Line;
@@ -142,7 +145,9 @@ void ReadWriteFiles::FromDataToVertexVector(std::string DataFileToVertexVector, 
 			float TempR = floats[3];
 			float TempG = floats[4];
 			float TempB = floats[5];
-			VerticesVector.emplace_back(Vertex{ TempX, TempY, TempZ, TempR, TempG, TempB });
+			float TempU = floats[6];
+			float TempV = floats[7];
+			VerticesVector.emplace_back(Vertex{ TempX, TempY, TempZ, TempR, TempG, TempB, TempU , TempV });
 		}
 
 		std::cout << "Amount of Vertexes added to the vector: " << VerticesVector.size() << std::endl;
@@ -163,6 +168,8 @@ void ReadWriteFiles::RemovingUnwantedChars(std::string& Line)
 	Line.erase(std::remove(Line.begin(), Line.end(), 'r'), Line.end());
 	Line.erase(std::remove(Line.begin(), Line.end(), 'g'), Line.end());
 	Line.erase(std::remove(Line.begin(), Line.end(), 'b'), Line.end());
+	Line.erase(std::remove(Line.begin(), Line.end(), 'u'), Line.end());
+	Line.erase(std::remove(Line.begin(), Line.end(), 'v'), Line.end());
 	Line.erase(std::remove(Line.begin(), Line.end(), ':'), Line.end());
 	Line.erase(std::remove(Line.begin(), Line.end(), ','), Line.end());
 	Line.erase(std::remove(Line.begin(), Line.end(), 'f'), Line.end());

@@ -5,8 +5,8 @@ class Vertex
 {
 public:
 	Vertex();
-	Vertex(float x, float y, float z, float r, float b, float g);
-	float x, y, z, r, b, g;
+	Vertex(float x, float y, float z, float r, float b, float g, float u, float v);
+	float x, y, z, r, b, g, u, v;
 };
 
 class Triangle
