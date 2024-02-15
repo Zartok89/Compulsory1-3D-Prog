@@ -29,7 +29,9 @@ void ReadWriteFiles::WriteToFile(std::string Filepath, std::vector<Vertex>& Vert
 			MyFile << "z: " << Vert.z << ", ";
 			MyFile << "r: " << Vert.r << ", ";
 			MyFile << "g: " << Vert.g << ", ";
-			MyFile << "b: " << Vert.b << " \n";
+			MyFile << "b: " << Vert.b << ", ";
+			MyFile << "u: " << Vert.u << ", ";
+			MyFile << "v: " << Vert.v << " \n";
 		}
 
 		MyFile.close();
@@ -147,7 +149,7 @@ void ReadWriteFiles::FromDataToVertexVector(std::string DataFileToVertexVector, 
 			float TempB = floats[5];
 			float TempU = floats[6];
 			float TempV = floats[7];
-			VerticesVector.emplace_back(Vertex{ TempX, TempY, TempZ, TempR, TempG, TempB, TempU , TempV });
+			VerticesVector.emplace_back(Vertex{ TempX, TempY, TempZ, TempR, TempG, TempB, TempU, TempV });
 		}
 
 		std::cout << "Amount of Vertexes added to the vector: " << VerticesVector.size() << std::endl;

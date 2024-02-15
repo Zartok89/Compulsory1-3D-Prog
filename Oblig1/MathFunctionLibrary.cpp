@@ -63,7 +63,7 @@ void MathFunctionLibrary::TreDSpiral(float LavreGrense, float OvreGrense, float 
 
 	for (float i = LavreGrense; i <= OvreGrense; i += h)
 	{
-		Vertex Vertices;	
+		Vertex Vertices;
 
 		x = i * Radius * cos(i);
 		y = i * Radius * sin(i);
@@ -72,20 +72,20 @@ void MathFunctionLibrary::TreDSpiral(float LavreGrense, float OvreGrense, float 
 		Vertices.x = x;
 		Vertices.y = y;
 		Vertices.z = z;
-		Vertices.r = -sin(i/10);
+		Vertices.r = -sin(i / 10);
 		Vertices.g = 1;
-		Vertices.b = cos(i/5);
+		Vertices.b = cos(i / 5);
 
 		std::cout << "F(" << LeddNr << ") = " << "x: " << x << ", y: " << y << ", z: " << z
-		<< ", r: " << Vertices.r <<  ", g: " << Vertices.g <<  ", b: " << Vertices.b
-		<<  ", u: " << "\n";
+			<< ", r: " << Vertices.r << ", g: " << Vertices.g << ", b: " << Vertices.b
+			<< ", u: " << "\n";
 		LeddNr++;
 
 		VertVector.push_back(Vertices);
 	}
 }
 
-void MathFunctionLibrary::TreDSpiral(float LavreGrense, float OvreGrense, float Opplosning, float Radius, std::vector<Vertex>& VertVector)
+void MathFunctionLibrary::ToVariabel(float LavreGrense, float OvreGrense, float Opplosning, std::vector<Vertex>& VertVector)
 {
 	int LeddNr = 0;
 	float h = ((OvreGrense - LavreGrense) / Opplosning);
@@ -93,27 +93,78 @@ void MathFunctionLibrary::TreDSpiral(float LavreGrense, float OvreGrense, float 
 	std::cout << "Antall intervaller (n): " << Opplosning << std::endl;
 	std::cout << "Opplosning (h): " << h << std::endl << std::endl;
 
+	// Lage trekanter
 	for (float i = LavreGrense; i <= OvreGrense; i += h)
 	{
-		Vertex Vertices;	
+		x = i;
 
-		x = i * Radius * cos(i);
-		y = i * Radius * sin(i);
-		z = i;
+		for (float j = LavreGrense; j <= OvreGrense; j += h)
+		{
+			Vertex Vertices;
 
-		Vertices.x = x;
-		Vertices.y = y;
-		Vertices.z = z;
-		Vertices.r = -sin(i/10);
-		Vertices.g = 1;
-		Vertices.b = cos(i/5);
+			y = j;
+			z = pow(i, 2) + y;
 
-		std::cout << "F(" << LeddNr << ") = " << "x: " << x << ", y: " << y << ", z: " << z
-		<< ", r: " << Vertices.r <<  ", g: " << Vertices.g <<  ", b: " << Vertices.b
-		<<  ", u: " << Vertices.u <<  ", v: " << Vertices.v
-		<< "\n";
-		LeddNr++;
+			// Punkt 1
+			Vertices.x = x;
+			Vertices.y = y;
+			Vertices.z = z;
+			Vertices.r = 0.5;
+			Vertices.g = 1;
+			Vertices.b = 0.5;
+			VertVector.push_back(Vertices);
 
-		VertVector.push_back(Vertices);
+			// Punkt 2
+			Vertices.x = x + h;
+			Vertices.y = y;
+			Vertices.z = pow(x+h, 2) + y;
+			Vertices.r = 0.5;
+			Vertices.g = 1;
+			Vertices.b = 0.5;
+			VertVector.push_back(Vertices);
+
+			// Punkt 3
+			Vertices.x = x;
+			Vertices.y = y + h;
+			Vertices.z = pow(x, 2) + y + h;
+			Vertices.r = 0.5;
+			Vertices.g = 1;
+			Vertices.b = 0.5;
+			VertVector.push_back(Vertices);
+
+			// Punkt 4
+			Vertices.x = x;
+			Vertices.y = y + h;
+			Vertices.z = pow(x, 2) + y + h;
+			Vertices.r = 0.5;
+			Vertices.g = 1;
+			Vertices.b = 0.5;
+			VertVector.push_back(Vertices);
+
+			// Punkt 5
+			Vertices.x = x + h;
+			Vertices.y = y + h;
+			Vertices.z = pow(x+h, 2) + y + h;
+			Vertices.r = 0.5;
+			Vertices.g = 1;
+			Vertices.b = 0.5;
+			VertVector.push_back(Vertices);
+
+			// Punkt 6
+			Vertices.x = x + h;
+			Vertices.y = y;
+			Vertices.z = pow(x+h, 2) + y;
+			Vertices.r = 0.5;
+			Vertices.g = 1;
+			Vertices.b = 0.5;
+			VertVector.push_back(Vertices);
+
+			//std::cout << "F(" << LeddNr << ") = " << "x: " << x << ", y: " << y << ", z: " << z
+			//	<< ", r: " << Vertices.r << ", g: " << Vertices.g << ", b: " << Vertices.b
+			//	<< ", u: " << Vertices.u << ", v: " << Vertices.v
+			//	<< "\n";
+
+			LeddNr++;
+		}
 	}
 }

@@ -22,5 +22,5 @@ public:
 
 	void TreDSpiral(float LavreGrense, float OvreGrense, float Opplosning, float Radius, std::vector<Vertex>& VertVector);
 
-	void ToVariabel();
+	void ToVariabel(float LavreGrense, float OvreGrense, float Opplosning, std::vector<Vertex>& VertVector);
 };
